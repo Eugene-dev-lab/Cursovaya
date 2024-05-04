@@ -1,0 +1,286 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Туры</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
+    <style>
+        .tour-card {
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            margin-right: 5px;
+            width: calc(33.33% - 20px);
+            display: inline-block;
+            vertical-align: top;
+            box-sizing: border-box;
+            position: relative;
+            transition: box-shadow 0.3s ease;
+            border: 3px solid black !important;
+            background-color: beige !important;
+        }
+
+        .tour-card:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .tour-card h2 {
+            margin-top: 0;
+        }
+
+        .tour-card p {
+            margin-bottom: 5px;
+        }
+
+        .tour-card img {
+            width: 100%;
+            height: 200px; /* Set a fixed height for the images */
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tour-card .btn-group {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tour-card:hover .btn-group {
+            opacity: 1;
+        }
+
+        .tour-card .btn {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .btn {
+            border-radius: 0px;
+            background-color: darkseagreen !important;
+            border: 2px solid black !important;
+            font-weight: bold !important;
+        }
+
+        body {
+            background-color: whitesmoke;
+        }
+
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: cornflowerblue;
+            transition: right 0.3s ease;
+            z-index: 999;
+        }
+
+        .side-panel.open {
+            right: 0;
+        }
+
+        .side-panel-content {
+            padding: 20px;
+        }
+
+        .side-panel-content h3 {
+            margin-top: 0;
+        }
+
+        .side-panel-content .btn {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .sort-arrow {
+            margin-left: 15px;
+            width: 30px;
+            height: 30px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sort-arrow:hover {
+            background-color: #999;
+        }
+
+        .sort-arrow::before {
+            content: "";
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 8px solid #fff;
+            transform: rotate(180deg);
+            transition: border-bottom-color 0.3s ease;
+        }
+
+        .sort-arrow.up::before {
+            border-bottom-color: #999;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            margin-bottom:10px;
+        }
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+<header th:insert="Blocks/Header-user :: header"></header>
+<div class="container mt-5">
+    <div class="menu">
+        <h1>Туры</h1>
+        <div id="sortButton" class="sort-arrow"></div>
+    </div>
+    <div class="side-panel">
+        <div class="side-panel-content">
+            <h3>Параметры сортировки</h3>
+            <button id="sortByNameButton" class="btn btn-primary">Сортировка по названию</button>
+            <button id="sortByDateButton" class="btn btn-primary">Сортировка по дате начала</button>
+            <div class="range-container">
+                <label for="priceRange">Цена:</label>
+                <div class="range-slider">
+                    <input type="range" id="priceRange" min="0" max="1000" step="1" />
+                    <span id="rangeValue"></span>
+                </div>
+            </div>
+            <button id="applyButton" class="btn btn-primary">Применить</button>
+        </div>
+    </div>
+    <div id="tourContainer" class="flex">
+        <div th:each="element, iterStat : ${tours}" class="tour-card card">
+            <img th:src="${element.image}" alt="Изображение тура">
+            <h2 class="card-title" th:text="${element.destination}"></h2>
+            <p><strong>Начало тура:</strong> <span th:text="${element.start_date}"></span></p>
+            <p><strong>Конец тура:</strong> <span th:text="${element.end_date}"></span></p>
+            <p><strong>Цена:</strong> <span class="price" th:text="${element.tour_price}"></span></p>
+            <div class="btn-group">
+                <a th:href=" '/tours/' + ${element.tour_id} + '/reservations'" class="btn btn-warning">Бронирование</a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="Blocks/Footer :: footer"></footer>
+
+<script>
+    const sortButton = document.getElementById('sortButton');
+    const sidePanel = document.querySelector('.side-panel');
+    const sortByNameButton = document.getElementById('sortByNameButton');
+    const sortByPriceButton = document.getElementById('sortByPriceButton');
+    const sortByDateButton = document.getElementById('sortByDateButton');
+
+    sortButton.addEventListener('click', () => {
+        sidePanel.classList.toggle('open');
+    });
+
+    sortByNameButton.addEventListener('click', () => {
+        sortBy('destination');
+    });
+
+    sortByDateButton.addEventListener('click', () => {
+        sortBy('start-date');
+    });
+
+
+    const priceRange = document.getElementById('priceRange');
+    const rangeValue = document.getElementById('rangeValue');
+
+    priceRange.addEventListener('input', () => {
+        rangeValue.textContent = priceRange.value;
+    });
+
+    const applyButton = document.getElementById('applyButton');
+
+    applyButton.addEventListener('click', () => {
+        filterByPrice();
+    });
+
+    function filterByPrice() {
+        const tourContainer = document.getElementById('tourContainer');
+        const tourCards = Array.from(tourContainer.getElementsByClassName('tour-card'));
+
+        const maxPrice = parseInt(rangeValue.textContent);
+
+        tourCards.forEach(card => {
+            const tourPrice = parseInt(card.querySelector('.price').textContent);
+
+            if (tourPrice <= maxPrice) {
+                card.style.display = 'inline-block'; // Если цена находится в диапазоне, показываем карточку
+            } else {
+                card.style.display = 'none'; // Если цена не находится в диапазоне, скрываем карточку
+            }
+        });
+    }
+
+    function sortBy(property) {
+        const tourContainer = document.getElementById('tourContainer');
+        const tourCards = Array.from(tourContainer.getElementsByClassName('tour-card'));
+
+        tourCards.sort((a, b) => {
+            const valueA = getProperty(a, property);
+            const valueB = getProperty(b, property);
+
+            if (property === 'start-date') {
+                return valueA - valueB;
+            } else {
+                return valueA.localeCompare(valueB);
+            }
+        });
+
+        // Очистите контейнер перед перемещением карточек
+        tourContainer.innerHTML = '';
+
+        // Переместите карточки обратно в контейнер
+        tourCards.forEach((card) => {
+            tourContainer.appendChild(card);
+        });
+    }
+
+    function getProperty(card, property) {
+        switch (property) {
+            case 'destination':
+                return card.querySelector('h2').textContent;
+            case 'start-date':
+                return new Date(card.querySelector('p:nth-child(3) span').textContent);
+            default:
+                return '';
+        }
+    }
+
+    const searchInput = document.querySelector('.search-input');
+    const tourCards = Array.from(document.getElementsByClassName('tour-card')); // Получаем все карточки туров
+
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase(); // Получаем строку поиска в нижнем регистре
+
+        tourCards.forEach(card => {
+            const tourName = card.querySelector('h2').textContent.toLowerCase(); // Получаем название тура в нижнем регистре
+
+            if (tourName.includes(searchTerm)) {
+                card.style.display = 'inline-block'; // Если название содержит строку поиска, показываем карточку
+            } else {
+                card.style.display = 'none'; // Если название не содержит строку поиска, скрываем карточку
+            }
+        });
+    });
+</script>
+</body>
+</html>

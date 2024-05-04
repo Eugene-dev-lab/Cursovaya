@@ -1,0 +1,198 @@
+<div th:fragment="header">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .navbar {
+
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            margin-bottom:60px;
+            padding: 15px;
+        }
+
+        .bg-light {
+            --bs-bg-opacity: 1;
+            background-color: beige!important;
+        }
+
+        .justify-content-end {
+            justify-content: flex-start!important;
+        }
+
+        .navbar-brand {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+
+        .nav-link {
+            font-family: 'Hanken Grotesk';
+            font-size: 18px;
+            color: #333;
+        }
+
+
+        .dropdown-item {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .dropdown-item:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .form-control {
+            border-color: #007bff;
+        }
+
+        .btn-outline-success {
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-outline-success:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .offcanvas-body {
+            padding: 15px;
+        }
+
+        .offcanvas-title {
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .btn-close-white {
+            color: #fff;
+        }
+
+        .form-control::placeholder {
+            color: #999;
+        }
+
+        .form-control:focus,
+        .btn-outline-success:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .input-container {
+            width: 220px;
+            position: relative;
+        }
+
+        .icon {
+            position: absolute;
+            right: 10px;
+            top: calc(50% + 5px);
+            transform: translateY(calc(-50% - 5px));
+            cursor: pointer;
+        }
+
+        .input {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            transition: .2s linear;
+            border: 2.5px solid black;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .input:focus {
+            outline: none;
+            border: 0.5px solid black;
+            box-shadow: -5px -5px 0px black;
+        }
+
+        .input-container:hover > .icon {
+            animation: anim 1s linear infinite;
+        }
+
+        @keyframes anim {
+            0%,
+            100% {
+                transform: translateY(calc(-50% - 5px)) scale(1);
+            }
+
+            50% {
+                transform: translateY(calc(-50% - 5px)) scale(1.1);
+            }
+        }
+
+
+    </style>
+    <nav class="navbar navbar-expand-lg bg-light" aria-label="Offcanvas navbar large">
+        <div class="container-fluid">
+
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Меню</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/about">О нас</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                                <a class="nav-link active" href="/users">Пользователи</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                                Данные о клиентах
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/clients">Клиенты</a></li>
+                                <li><a class="dropdown-item" href="/clients/add">Добавить Клиентов</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                                Данные о билетах
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/tickets">Билеты</a></li>
+                                <li><a class="dropdown-item" href="/tickets/add">Добавить Билеты</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+                                Данные о турах
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="xx"><a class="dropdown-item" href="/tours">Туры</a></li>
+                                <li class="xx"><a class="dropdown-item" href="/tours/add">Добавить Туры</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/reservations">Бронирование</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/login">Выход</a>
+                        </li>
+                    </ul>
+                    <div class="input-container">
+                        <input type="text" name="text" class="search-input input" placeholder="search...">
+                        <span class="icon">
+    <svg width="19px" height="19px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path opacity="1" d="M14 5H20" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="1" d="M14 8H17" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M21 11.5C21 16.75 16.75 21 11.5 21C6.25 21 2 16.75 2 11.5C2 6.25 6.25 2 11.5 2" stroke="#000" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path> <path opacity="1" d="M22 22L20 20" stroke="#000" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+  </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>

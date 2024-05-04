@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Контакты</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" />
+
+</head>
+<body>
+<header th:insert="Blocks/Header-user :: header"></header>
+<style>
+    body {
+        background-color: whitesmoke;
+    }
+
+    .section-title-6 {
+        margin: 0;
+        padding-bottom: 19px;
+    }
+
+    .contacts {
+        width: 1168px;
+        height: 618px;
+        background: #FFFFFF;
+        border-radius: 15px;
+    }
+
+    .contacts-title {
+        margin: 0;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 20px;
+        color: #000000;
+    }
+
+    .form-title {
+        margin: 0;
+        font-size: 12px;
+        line-height: 12px;
+        color: #000000
+    }
+
+    .form {
+        display: flex;
+        align-items: center;
+        padding: 23px
+    }
+
+    .form-li {
+        padding: 0;
+        border-right: 1px solid #E1E1E1;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .peregorodka-1 {
+        padding-left: 0px;
+    }
+
+    .contacts-descr {
+        margin: 0;
+        width: 100%;
+        height: 48px;
+        padding-left: 83px;
+        font-size: 16px;
+        line-height: 150%;
+    }
+
+    .section-contacts-addr {
+        display: flex;
+        border-bottom: 1px solid #c4c4c4;
+        padding-top: 44px;
+        padding-bottom: 25px;
+        width: 375px;
+        margin-left: 46px;
+    }
+
+    .section-contacts-tel {
+        display: flex;
+        border-bottom: 1px solid #c4c4c4;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        width: 375px;
+        margin-left: 46px;
+    }
+
+    .section-contacts-mail {
+        display: flex;
+        border-bottom: 1px solid #c4c4c4;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        width: 375px;
+        margin-left: 46px;
+    }
+
+    .section-contacts-grafic {
+        display: flex;
+        border-bottom: 1px solid #c4c4c4;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        width: 375px;
+        margin-left: 46px;
+    }
+
+    .contacts-link-tel {
+        width: 100%;
+        height: 24px;
+        padding-left: 47px;
+        font-size: 16px;
+        line-height: 150%;
+        color: #CC9933;
+    }
+
+    .contacts-link-tel-1 {
+        width: 100%;
+        height: 24px;
+        padding-left: 47px;
+        font-size: 16px;
+        line-height: 150%;
+        color: #CC9933;
+    }
+
+    .flex-link {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .flex-link-email {
+        display: flex;
+        flex-direction: column;
+        padding-left: 84px;
+    }
+
+    .contacts-grafik {
+        margin: 0;
+        padding-left: 74px;
+        width: 100%;
+        height: 48px;
+    }
+
+    .button-section-6 {
+        border: 3px solid darkgreen;
+        box-sizing: border-box;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 16px;
+        color: black;
+        padding: 15px;
+        margin-top: 35px;
+        margin-left: 46px;
+        background-color: #CC9933;
+    }
+
+    .contacts-link {
+        font-size: 16px;
+        line-height: 150%;
+        color: #CC9933;
+    }
+
+    .descr-e-mail {
+        margin: 0;
+        font-size: 16px;
+        line-height: 150%;
+        color: #999999;
+    }
+
+    .img-contacts {
+        position: absolute;
+        border-radius: 10px;
+        background-image: url("/imgrec.jpg");
+        background-repeat: no-repeat;
+        width: 653px;
+        height: 528px;
+        margin-top: 44px;
+        margin-right: 44px;
+        margin-left: 471px;
+    }
+</style>
+<div class="container">
+    <h2 class="section-title section-title-6">Контакты</h2>
+    <div class="contacts">
+        <span class="img-contacts"></span>
+        <div class="section-contacts-addr">
+            <h3 class="contacts-title">Адрес</h3>
+            <p class="contacts-descr">Москва, улица Юности, дом 5 строение 4, офис 2</p>
+        </div>
+        <div class="section-contacts-tel">
+            <h3 class="contacts-title">Телефоны</h3>
+            <div class="flex-link">
+                <a href="tel:+74995356434" class="contacts-link-tel">+375 29 653-65-34</a>
+                <a href="tel:+74950050544" class="contacts-link-tel-1">+375 29 636-56-30</a>
+            </div>
+        </div>
+        <div class="section-contacts-mail">
+            <h3 class="contacts-title">E-mail</h3>
+            <div class="flex-link-email">
+                <a href="mailto:hotels@gmail.com" class="contacts-link">
+                    lg.oona@mail.ru
+                </a>
+                <p class="descr-e-mail">по вопросам бронирования</p>
+                <a href="mailto:recertion@gmail.com" class="contacts-link">
+                    hotels.ln@mail.ru
+                </a>
+                <p class="descr-e-mail">по вопросам сотрудничества</p>
+            </div>
+        </div>
+        <div class="section-contacts-grafic">
+            <h3 class="contacts-title">График</h3>
+            <p class="contacts-grafik">Понедельник - пятница, с 10:00 до 19:00</p>
+        </div>
+        <button class="button btn-reset button-section-6">Написать нам</button>
+        <button class="button btn-reset button-section-6">Обратная связь</button>
+    </div>
+</div>
+<footer th:insert="Blocks/Footer :: footer"></footer>
+</body>
+</html>
